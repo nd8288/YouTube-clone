@@ -1,0 +1,79 @@
+.header{
+  height: 57px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: white;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(222, 217, 217);
+  z-index: 1;
+}
+.left{
+width: 155px;
+display: flex;
+align-items: center;
+}
+.center{
+display: flex;
+flex:1;
+margin-left:70px;
+margin-right: 30px;
+max-width:500px;
+align-items: center;
+}
+.rigth{
+
+width: 200px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.youtube-logo{
+  width: 100px;
+}
+.menu{
+  width:30px;
+  margin-right: 25px;
+  margin-left: 20px;
+}
+.search-logo{
+  width: 60px; 
+  height:35px;
+}
+.mic{
+  width:25px;
+}
+.search-bar{
+  display: flex;
+  flex: 1;
+  height:35px;
+  border-radius: 2px;
+  border-color: rgb(232, 231, 231);
+}
+.search-button{
+  height:40px;
+}
+.mic-button{
+  height:40px;
+  border-radius: 20px;
+  border: none;
+  margin-left: 10px;
+}
+.record{
+  height: 27px;
+}
+.app{
+  height: 27px;
+}
+.notification{
+  height: 27px;
+}
+.creater{
+  height: 27px;
+}

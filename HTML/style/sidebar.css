@@ -1,0 +1,23 @@
+.sidebar{
+  background-color: white;
+  position: fixed;
+  left: 0;
+  top: 57px;
+  bottom: 0;
+  width: 70px;
+ 
+}
+.sidebar-image img{
+  height: 24px;
+}
+.sidebar-image{
+  display: flex;
+justify-content: center;
+flex-direction: column;
+height: 76px;
+align-items: center;
+}
+.sidebar-image div{
+  font-family: Roboto ,arial;
+  font-size: 10px;
+}

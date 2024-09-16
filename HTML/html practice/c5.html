@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Grid</title>
+  <style>
+    body {
+      font-family: Roboto, Arial;
+      color: rgb(33, 33, 33);
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    select {
+      cursor: pointer;
+    }
+
+    input, select, button {
+      font-family: Roboto, Arial;
+    }
+
+    input:focus,
+    select:focus {
+      outline: 2px solid rgb(255, 153, 0);
+    }
+
+    .button-primary {
+      color: rgb(33, 33, 33);
+      background-color: rgb(255, 216, 20);
+      border: 1px solid rgb(252, 210, 0);
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+    }
+
+    .button-primary:hover {
+      background-color: rgb(247, 202, 0);
+      border: 1px solid rgb(242, 194, 0);
+    }
+
+    .button-primary:active {
+      background: rgb(255, 216, 20);
+      border-color: rgb(252, 210, 0);
+      box-shadow: none;
+    }
+
+    .button-secondary {
+      color: rgb(33, 33, 33);
+      background: white;
+      border: 1px solid #D5D9D9;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+    }
+
+    .button-secondary:hover {
+      background-color: #F7FAFA;
+    }
+
+    .button-secondary:active {
+      background-color: #EDFDFF;
+      box-shadow: none;
+    }
+
+    .limit-to-2-lines {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .link-primary {
+      color: #017cb6;
+      cursor: pointer;
+    }
+
+    .link-primary:hover {
+      color: rgb(196, 80, 0);
+    }
+
+    select {
+      color: rgb(33, 33, 33);
+      background-color: rgb(240, 240, 240);
+      border: 1px solid rgb(213, 217, 217);
+      border-radius: 8px;
+      padding: 3px 5px;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+    }
+
+    .amazon-header {
+      background-color: rgb(19, 25, 33);
+      color: white;
+      padding-left: 15px;
+      padding-right: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+    }
+
+    .amazon-header .left-section {
+      width: 180px;
+    }
+
+    @media (max-width: 800px) {
+      .amazon-header .left-section {
+        width: unset;
+      }
+    }
+
+    .amazon-header .header-link {
+      display: inline-block;
+      padding: 6px;
+      border-radius: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      border: 1px solid rgba(0, 0, 0, 0);
+    }
+
+    .amazon-header .header-link:hover {
+      border: 1px solid white;
+    }
+
+    .amazon-header .amazon-logo {
+      width: 100px;
+      margin-top: 5px;
+    }
+
+    .amazon-header .amazon-mobile-logo {
+      display: none;
+    }
+
+    @media (max-width: 575px) {
+      .amazon-header .amazon-logo {
+        display: none;
+      }
+
+      .amazon-header .amazon-mobile-logo {
+        display: block;
+        height: 35px;
+        margin-top: 5px;
+      }
+    }
+
+    .amazon-header .middle-section {
+      flex: 1;
+      max-width: 850px;
+      margin-left: 10px;
+      margin-right: 10px;
+      display: flex;
+    }
+
+    .amazon-header .search-bar {
+      flex: 1;
+      width: 0;
+      font-size: 16px;
+      height: 38px;
+      padding-left: 15px;
+      border: none;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .amazon-header .search-button {
+      background-color: rgb(254, 189, 105);
+      border: none;
+      width: 45px;
+      height: 40px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .amazon-header .search-icon {
+      height: 22px;
+      margin-left: 2px;
+      margin-top: 3px;
+    }
+
+    .amazon-header .right-section {
+      width: 180px;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: end;
+    }
+
+    .amazon-header .right-section-mobile {
+      display: none;
+    }
+
+    @media (max-width: 575px) {
+      .amazon-header .right-section {
+        display: none;
+      }
+
+      .amazon-header .right-section-mobile {
+        display: block;
+      }
+    }
+
+    .amazon-header .hamburger-menu-toggle {
+      display: block;
+      padding: 6px;
+      cursor: pointer;
+    }
+
+    .amazon-header .hamburger-menu-dropdown {
+      background-color: rgb(19, 25, 33);
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 60px;
+      z-index: 100;
+      text-align: center;
+      display: none;
+      overflow: hidden;
+      height: 0px;
+      transition: height 0.25s;
+    }
+
+    @media (max-width: 575px) {
+      .amazon-header .hamburger-menu-dropdown {
+        display: block;
+      }
+
+      .amazon-header .hamburger-menu-opened {
+        height: 88px;
+      }
+
+      .amazon-header .hamburger-menu-link {
+        color: white;
+        text-decoration: none;
+        display: block;
+        padding: 10px;
+        font-weight: 500;
+      }
+
+      .amazon-header .hamburger-menu-link:hover {
+        background-color: rgb(38, 50, 63);
+      }
+    }
+
+    .amazon-header .orders-link {
+      color: white;
+    }
+
+    .amazon-header .returns-text {
+      display: block;
+      font-size: 13px;
+    }
+
+    .amazon-header .orders-text {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .amazon-header .cart-link {
+      color: white;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .amazon-header .cart-icon {
+      width: 50px;
+    }
+
+    .amazon-header .cart-text {
+      margin-top: 12px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .amazon-header .cart-quantity {
+      color: rgb(240, 136, 4);
+      font-size: 16px;
+      font-weight: 700;
+      position: absolute;
+      top: 4px;
+      left: 22px;
+      width: 26px;
+      text-align: center;
+    }
+
+    .amazon-header .cart-quantity-mobile {
+      color: rgb(240, 136, 4);
+    }
+
+    main {
+      margin-top: 60px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+    }
+
+    @media (max-width: 2000px) {
+      .products-grid {
+        grid-template-columns: repeat(7, 1fr);
+      }
+    }
+
+    @media (max-width: 1600px) {
+      .products-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    @media (max-width: 1300px) {
+      .products-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (max-width: 800px) {
+      .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 575px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 450px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .products-grid .empty-results-message {
+      padding-left: 10px;
+      padding-top: 10px;
+      grid-column: span 2;
+    }
+
+    .products-grid .product-container {
+      padding-top: 40px;
+      padding-bottom: 25px;
+      padding-left: 25px;
+      padding-right: 25px;
+      border-right: 1px solid rgb(231, 231, 231);
+      border-bottom: 1px solid rgb(231, 231, 231);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .products-grid .product-image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 180px;
+      margin-bottom: 20px;
+    }
+
+    .products-grid .product-image {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .products-grid .product-name {
+      height: 40px;
+      margin-bottom: 5px;
+    }
+
+    .products-grid .product-rating-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .products-grid .product-rating-stars {
+      width: 100px;
+      margin-right: 6px;
+    }
+
+    .products-grid .product-rating-count {
+      color: #017cb6;
+      cursor: pointer;
+      margin-top: 3px;
+    }
+
+    .products-grid .product-price {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .products-grid .product-quantity-container {
+      margin-bottom: 17px;
+    }
+
+    .products-grid .variation-name {
+      font-weight: 500;
+      margin-bottom: 1px;
+    }
+
+    .products-grid .variation-options-container {
+      cursor: default;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+
+    .products-grid .variation-option {
+      background-color: white;
+      border: 1px solid rgb(173, 177, 184);
+      padding: 5px 8px;
+      border-radius: 8px;
+      font-size: 15px;
+      margin-right: 3px;
+      margin-bottom: 7px;
+    }
+
+    .products-grid .variation-option.is-selected {
+      border: 2px solid rgb(231, 117, 2);
+      padding: 4px 7px;
+    }
+
+    .products-grid .product-spacer {
+      flex: 1;
+    }
+
+    .products-grid .added-to-cart-message {
+      color: rgb(6, 125, 98);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      opacity: 0;
+    }
+
+    .products-grid .added-to-cart-message img {
+      height: 20px;
+      margin-right: 5px;
+    }
+
+    .products-grid .added-to-cart-message.is-visible {
+      opacity: 1;
+      transition: none;
+    }
+
+    .products-grid .add-to-cart-button {
+      width: 100%;
+      padding: 8px;
+      border-radius: 50px;
+    }
+  </style>
+</head>
+<body>
+  <header class="amazon-header">
+    <div class="left-section">
+      <a href="#" class="header-link">
+        <img src="path/to/logo.png" alt="Amazon Logo" class="amazon-logo">
+        <img src="path/to/mobile-logo.png" alt="Amazon Mobile Logo" class="amazon-mobile-logo">
+      </a>
+    </div>
+    <div class="middle-section">
+      <input type="text" class="search-bar" placeholder="Search products">
+      <button class="search-button">
+        <img src="path/to/search-icon.png" alt="Search" class="search-icon">
+      </button>
+    </div>
+    <div class="right-section">
+      <a href="#" class="header-link orders-link">
+        <span class="returns-text">Returns</span>
+        <span class="orders-text">& Orders</span>
+      </a>
+      <a href="#" class="header-link cart-link">
+        <img src="path/to/cart-icon.png" alt="Cart" class="cart-icon">
+        <span class="cart-text">Cart</span>
+        <span class="cart-quantity">0</span>
+      </a>
+      <a href="#" class="header-link right-section-mobile">
+        <img src="path/to/menu-icon.png" alt="Menu" class="hamburger-menu-toggle">
+      </a>
+    </div>
+    <div class="hamburger-menu-dropdown">
+      <a href="#" class="hamburger-menu-link">Home</a>
+      <a href="#" class="hamburger-menu-link">Products</a>
+      <a href="#" class="hamburger-menu-link">Categories</a>
+      <a href="#" class="hamburger-menu-link">Contact Us</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="products-grid">
+      <!-- Product items go here -->
+      <div class="product-container">
+        <div class="product-image-container">
+          <img src="path/to/product-image.jpg" alt="Product" class="product-image">
+        </div>
+        <p class="product-name limit-to-2-lines">Product Name Here</p>
+        <div class="product-rating-container">
+          <img src="path/to/rating-stars.png" alt="Rating Stars" class="product-rating-stars">
+          <span class="product-rating-count">(100)</span>
+        </div>
+        <p class="product-price">$19.99</p>
+        <div class="product-quantity-container">
+          <div class="variation-name">Size</div>
+          <div class="variation-options-container">
+            <span class="variation-option">Small</span>
+            <span class="variation-option is-selected">Medium</span>
+            <span class="variation-option">Large</span>
+          </div>
+        </div>
+        <button class="add-to-cart-button button-primary">Add to Cart</button>
+        <p class="added-to-cart-message">
+          <img src="path/to/check-icon.png" alt="Added" class="added-icon">
+          Added to cart
+        </p>
+      </div>
+      <div class="empty-results-message">
+        No results found
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+      addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const productContainer = button.closest('.product-container');
+          const message = productContainer.querySelector('.added-to-cart-message');
+          message.classList.add('is-visible');
+          setTimeout(() => {
+            message.classList.remove('is-visible');
+          }, 2000); // Hide message after 2 seconds
+        });
+      });
+
+      const hamburgerMenuToggle = document.querySelector('.hamburger-menu-toggle');
+      const hamburgerMenuDropdown = document.querySelector('.hamburger-menu-dropdown');
+      hamburgerMenuToggle.addEventListener('click', () => {
+        hamburgerMenuDropdown.classList.toggle('hamburger-menu-opened');
+      });
+    });
+  </script>
+</body>
+</html>
